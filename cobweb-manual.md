@@ -1,5 +1,17 @@
 # Libcobweb pre-version #
 
+## Quick Start Guide: ##
+
+I want to:
+
+- Look for a search term in both the URL and title of a web page:
+
+  (*) | 'search_term' IN urls OR 'search_term' IN titles;
+
+- Look at all the pages between 2015-05-01 and 2015-05-19:
+
+  (*) | <date_of_visit_token> >= 2015-05-01 AND <date_of_visit_token> <= 2015-05-19
+
 ## Search Statement: ##
 
 The first portion of a cobweb search statement is a division between the columns
@@ -102,16 +114,155 @@ is no ambiguity as to which parts of the statement should be evaluated first:
 
 ### Alias token: ###
 
+%<alias_name>
 
+Example: %ALIAS
 
-## Quick Start Guide: ##
+Terms: None
 
-I want to:
+Description: Is expanded from a map of alias strings out to the string aliased.
 
-- Look for a search term in both the URL and title of a web page:
+Notes: Aliases are not case sensitive. Only alphanumeric characters are allowed in
+alias names.
 
-  (*) | 'search_term' IN urls OR 'search_term' IN titles;
+### Parenthesis: ###
 
-- Look at all the pages between 2015-05-01 and 2015-05-19:
+()
 
-  (*) | <date_of_visit_token> >= 2015-05-01 AND <date_of_visit_token> <= 2015-05-19
+Example: ('dog' IN titles OR 'cat' IN titles) AND 'pet' IN titles
+
+Terms: None
+
+Description: Wrapping tokens in parenthesis lets you use flow control to 
+manipulate order of operations. In the parse tree anything in parenthesis is
+evaluated recursively as though it were a top level search query statement.
+
+Notes: None
+
+### NOT: ###
+
+NOT
+
+Example: NOT FALSE
+
+(Would evaluate to TRUE.)
+
+Terms: No left term, negates the value of the immediate right term.
+
+Description: Negates an expression or value, TRUE becomes FALSE and FALSE
+becomes TRUE. Can be used with parenthesis to negate large amounts of boolean
+logic.
+
+Notes: Negates the *most immediate* right term, so if you write:
+
+NOT 0 OR 5
+
+The NOT 0 will be evaluated before the 0 OR 5.
+
+In this case, since anything not-zero is TRUE the evaluation of NOT 0
+would be TRUE.
+
+### Comparison operators: ###
+
+< > <= >= = IN
+
+Example: browser.table.date > browser.table.date
+
+Terms: All comparison operators have a left term and a right term, the exact
+mechanics of each is described below.
+
+Description: Compares two values or expressions according to a logical operation.
+
+Notes: This entry has sub-entries that start below.
+
+#### Less than: ####
+
+<
+
+Example: 2 < 5
+
+(Evaluates to TRUE.)
+
+Terms: Evaluates to TRUE if left term is lesser than right term. FALSE otherwise.
+
+Description: IBID.
+
+Notes: None.
+
+#### Greater than: ####
+
+>
+
+Example: 5 > 2
+
+(Evaluates to TRUE.)
+
+Terms: Evaluates to TRUE if left term is greater than right term. False otherwise.
+
+Description: IBID
+
+Notes: None.
+
+#### Less than or equal to: ####
+
+<= 
+
+Example: 5 <= 5
+
+(Evaluates to TRUE.)
+
+Terms: Evaluates to TRUE if left term is less than or equal to right term.
+False otherwise.
+
+Description: Syntactic sugar for '5 < browser.table.column OR 5 = broswer.table.column'.
+
+Notes: None.
+
+#### Greater than or equal to: ####
+
+>=
+
+Example: 5 >= 5
+
+(Evalutes to TRUE.)
+
+Terms: Evaluates to TRUE if left term is greater than or equal to right term.
+False otherwise.
+
+Description: Syntactic sugar for '5 > browser.table.column OR 5 = browser.table.column'.
+
+Notes: None.
+
+#### Equals: ####
+
+=
+
+Example: 5 = 5
+
+(Evaluates to TRUE.)
+
+Terms: Evaluates to TRUE if left term and right term are the same. FALSE
+otherwise.
+
+Description: IBID.
+
+Notes: None.
+
+#### IN: ####
+
+IN
+
+Example: 'dog' in titles
+
+(Evaluates to TRUE if dog is in the data for 'titles' in current row.)
+
+Terms: Evaluates to TRUE if left term is 'in' the right term. FALSE otherwise.
+
+Description: IBID. Exact details on what counts as 'in' are in the notes below:
+
+Notes: The left term is 'in' the right term if:
+
+For strings, the characters in the left term string are in the right term string.
+
+For integers and numbers, the left number 'goes into' the right number as in
+division. More prescisely if L mod R is L then it evaluates to FALSE. 
