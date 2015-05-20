@@ -1,4 +1,6 @@
-Search Statement:
+# Libcobweb pre-version #
+
+## Search Statement: ##
 
 The first portion of a cobweb search statement is a division between the columns
 that will be returned by the search and the actual search query:
@@ -8,7 +10,7 @@ that will be returned by the search and the actual search query:
 The syntax is exactly as shown with '<COLUMNS>' and '<QUERY>' replaced with the
 appropriate syntax for columns and the appropriate syntax for a query.
 
-Columns:
+## Columns: ##
 
 Most important columns in cobweb are 'top level', meaning that they can simply
 be named as themselves with no issues, for example if you were searching the text
@@ -35,7 +37,7 @@ For an example:
 Would get you the column 'ghi' in the table 'def' in the database of the browser
 'abc'. 
 
-Aliases:
+## Aliases: ##
 
 Before continuing, it's important to note that when writing out a single query
 that fully qualified names or other elements might get long. Cobweb lets you 
@@ -52,7 +54,7 @@ over. Aliases must always come at the start of a search query.
 Aliases must be referred to in search queries with the % symbol prepended to
 so that the program does not confuse them for column names or logical operators.
 
-Column declaration:
+## Column declaration: ##
 
 The first portion of a cobweb search statement is to declare what columns the
 search should return data from. To return every column in every row of every
@@ -68,7 +70,7 @@ declarations is enclosed in parenthesis, like so:
 
 Columns are returned in the order that they're given in the declarations.
 
-Queries:
+## Queries: ##
 
 Searches in databases rely on the fact that you can ask True or False questions
 about data in the columns of each row. Search queries in cobweb are one long yes
@@ -84,19 +86,25 @@ false and the row is not returned as a result.
 There is a defined order of operations for cobweb search queries, so that there
 is no ambiguity as to which parts of the statement should be evaluated first:
 
-1. Parenthesis.
+1. Aliases.
 
-2. Aliases.
+2. Parenthesis.
 
-3. Logical operators: < > <= >= = IN IS 
+3. NOT
 
-4. NOT
+4. Comparison operators: < > <= >= = IN
 
-5. OR
+5. AND
 
-6. AND
+6. OR
 
-Quick Start Guide:
+## Advanced language spec: ##
+
+### Alias token: ###
+
+
+
+## Quick Start Guide: ##
 
 I want to:
 
