@@ -3,7 +3,7 @@ Search Statement:
 The first portion of a cobweb search statement is a division between the columns
 that will be returned by the search and the actual search query:
 
-(<COLUMNS>) | <QUERY>
+     (<COLUMNS>) | <QUERY>
 
 The syntax is exactly as shown with '<COLUMNS>' and '<QUERY>' replaced with the
 appropriate syntax for columns and the appropriate syntax for a query.
@@ -14,7 +14,7 @@ Most important columns in cobweb are 'top level', meaning that they can simply
 be named as themselves with no issues, for example if you were searching the text
 of URL's for the string 'dog' you could type:
 
-'dog' IN url
+   'dog' IN url
 
 (The capitalization of 'in' is not strictly necessary, but as shall become 
 apparent later it makes it much easier to distinguish between language portions
@@ -26,11 +26,11 @@ for columns to pull data from. Other columns that are specific to a certain
 browser must be referred to with a *fully qualified* name. That is, starting
 with the name of the browser you must specify a path that leads to the column:
 
-browser.table.column
+     browser.table.column
 
 For an example:
 
-abc.def.ghi
+    abc.def.ghi
 
 Would get you the column 'ghi' in the table 'def' in the database of the browser
 'abc'. 
@@ -42,7 +42,7 @@ that fully qualified names or other elements might get long. Cobweb lets you
 define aliases in your query. An alias is a piece of text that the search engine
 will 'expand' out to become another piece of text. For example, the alias:
 
-alias:browser.table.column
+     alias:browser.table.column
 
 Would turn every unquoted instance of the term '%alias' into 
 'browser.table.column'. This lets you significantly cut down on the length of
@@ -58,13 +58,13 @@ The first portion of a cobweb search statement is to declare what columns the
 search should return data from. To return every column in every row of every
 table involved in the search you use the asterick like so:
 
-(*)
+      (*)
 
 Otherwise the syntax for column declarations is as follows. Each column is 
 declared as its qualified name and seperated by commas. The entire set of 
 declarations is enclosed in parenthesis, like so:
 
-(titles, urls)
+	     (titles, urls)
 
 Columns are returned in the order that they're given in the declarations.
 
@@ -75,7 +75,7 @@ about data in the columns of each row. Search queries in cobweb are one long yes
 or no question about the data that is chained together using boolean logic and
 other logical operators. For example:
 
-(*) | 'search_term' IN urls AND 'search_term' IN titles;
+      (*) | 'search_term' IN urls AND 'search_term' IN titles;
 
 Will ask a single yes or no question, which is whether the search term is in
 urls AND in titles, if either of these is false then the entire statement is
@@ -102,8 +102,8 @@ I want to:
 
 - Look for a search term in both the URL and title of a web page:
 
-(*) | 'search_term' IN urls OR 'search_term' IN titles;
+  (*) | 'search_term' IN urls OR 'search_term' IN titles;
 
 - Look at all the pages between 2015-05-01 and 2015-05-19:
 
-(*) | <date_of_visit_token> >= 2015-05-01 AND <date_of_visit_token> <= 2015-05-19
+  (*) | <date_of_visit_token> >= 2015-05-01 AND <date_of_visit_token> <= 2015-05-19
