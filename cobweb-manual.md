@@ -266,3 +266,34 @@ For strings, the characters in the left term string are in the right term string
 
 For integers and numbers, the left number 'goes into' the right number as in
 division. More prescisely if L mod R is L then it evaluates to FALSE. 
+
+### AND: ###
+
+AND
+
+Example: 5 AND FALSE
+
+(Evaluates to FALSE.)
+
+Terms: Evaluates to TRUE if left term evaluates to TRUE and right term evaluates 
+to TRUE.
+
+Description: IBID.
+
+Notes: None.
+
+### OR: ###
+
+OR
+
+Example: 5 OR FALSE
+
+(Evaluates to TRUE.)
+
+Terms: Evaluates to TRUE if left term evaluates to TRUE or right term evaluates
+to TRUE.
+
+Description: IBID.
+
+Notes: None.
+
